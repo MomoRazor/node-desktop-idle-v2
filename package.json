@@ -51,7 +51,7 @@
     "check-packages": "npx npm-check -u -E",
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc",
-    "prepare": "tsc",
+    "prepare": "npm install --no-save @types/node  && tsc",
     "test": "node test.js",
     "install": "node-gyp-build"
   }
