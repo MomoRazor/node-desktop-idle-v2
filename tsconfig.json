@@ -1,18 +1,20 @@
 {
-	"compilerOptions": {
-	  "target": "esnext",
-	  "module": "nodenext",
-	  "lib": ["esnext"],
-	  "outDir": "./dist",
-	  "declaration": true,
-	  "declarationDir": "./dist/types",
-	  "strict": true,
-	  "esModuleInterop": true,
-	  "moduleResolution": "nodenext",
-	  "resolveJsonModule": true,
-	  "forceConsistentCasingInFileNames": true,
-	  "skipLibCheck": true
-	},
-	"include": ["src/**/*", "index.ts"],
-	"exclude": ["dist"]
-  }
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext",
+    "lib": ["esnext"],
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationDir": "./dist/types",
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "index.ts"],
+  "exclude": ["dist"]
+}
