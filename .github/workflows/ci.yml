@@ -1,0 +1,66 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [21, 22, 23, 24]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Linux dependencies
+      if: runner.os == 'Linux'
+      run: sudo apt-get update && sudo apt-get install -y libx11-dev libxss-dev libinput-dev libudev-dev
+
+    - name: Add user to input group
+      if: runner.os == 'Linux'
+      run: sudo usermod -a -G input $USER
+
+    # Test 1: npm install works
+    - name: Test npm install
+      run: npm install
+
+    # Test 2: npm run build works
+    - name: Test npm run build
+      run: npm run build
+
+    # Test 3: npm run build-native works
+    - name: Test npm run build-native
+      run: npm run build-native
+
+    # Test 4: Install from GitHub with prebuilts (user scenario 1)
+    - name: Test install from GitHub with prebuilts
+      run: npm install -g github:${{ github.repository }}#${{ github.head_ref || github.ref_name }}
+
+    # Test 5: Test functionality with prebuilts
+    - name: Test functionality on Linux
+      if: runner.os == 'Linux'
+      run: sg input -c "node test.js"
+
+    - name: Test functionality on Windows and macOS
+      if: runner.os != 'Linux'
+      run: node test.js
+
+    # Test 6: Test compilation from source (user scenario 2)
+    - name: Test install from GitHub with forced compilation
+      run: npm install -g github:${{ github.repository }}#${{ github.head_ref || github.ref_name }} --build-from-source
+
+    # Test 7: Test functionality after compilation from source
+    - name: Test functionality after source compilation on Linux
+      if: runner.os == 'Linux'
+      run: sg input -c "node test.js"
+
+    - name: Test functionality after source compilation on Windows and macOS
+      if: runner.os != 'Linux'
+      run: node test.js

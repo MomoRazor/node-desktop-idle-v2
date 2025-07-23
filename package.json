@@ -29,14 +29,12 @@
   ],
   "files": [
     "dist/",
-    "build/Release/desktopIdle.node",
     "src/",
     "binding.gyp",
     "package.json",
     "README.md",
     "prebuilds/"
   ],
-  "gypfile": true,
   "devDependencies": {
     "@types/node": "24.0.15",
     "eslint": "9.31.0",
@@ -53,6 +51,8 @@
     "check-packages": "npx npm-check -u -E",
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc",
+    "prepare": "tsc",
+    "test": "node test.js",
     "install": "node-gyp-build"
   }
 }
