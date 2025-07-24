@@ -46,11 +46,11 @@ jobs:
       # Test 5: Test functionality with prebuilts
       - name: Test functionality on Linux
         if: runner.os == 'Linux'
-        run: sg input -c "node test.js"
+        run: sg input -c "node test-esm.js"
 
       - name: Test functionality on Windows and macOS
         if: runner.os != 'Linux'
-        run: node test.js
+        run: node test-esm.js
 
       # Test 6: Test compilation from source (user scenario 2)
       - name: Test install from GitHub with forced compilation
@@ -59,8 +59,8 @@ jobs:
       # Test 7: Test functionality after compilation from source
       - name: Test functionality after source compilation on Linux
         if: runner.os == 'Linux'
-        run: sg input -c "node test.js"
+        run: sg input -c "node test-esm.js"
 
       - name: Test functionality after source compilation on Windows and macOS
         if: runner.os != 'Linux'
-        run: node test.js
+        run: node test-esm.js

@@ -1,8 +1,12 @@
 {
   "name": "node-desktop-idle-v2",
   "version": "1.1.6",
-  "main": "./dist/index.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./src/cjs-entry.cjs",
+  "types": "./src/cjs-entry.d.ts",
+  "exports": {
+    "import": "./src/esm-entry.js",
+    "require": "./src/cjs-entry.cjs"
+  },
   "license": "MIT",
   "type": "module",
   "description": "Node/Electron module to detect idle desktop users(users away from keyboard) in Windows and Linux",
@@ -39,18 +43,20 @@
     "@types/node": "24.1.0",
     "eslint": "9.31.0",
     "npm-check": "6.0.1",
-    "prebuildify": "6.0.1",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "node-abi": "4.12.0",
+    "node-gyp": "11.2.0"
   },
   "dependencies": {
     "nan": "2.23.0",
     "node-gyp-build": "4.8.4"
   },
   "scripts": {
-    "build-native": "prebuildify --napi --electron-compat --name desktopIdle",
+    "build-native": "./manual-prebuild.sh",
     "check-packages": "npx npm-check -u -E",
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc",
-    "test": "node test.js"
+    "test": "node test-esm.js",
+    "install": "node-gyp-build"
   }
 }
