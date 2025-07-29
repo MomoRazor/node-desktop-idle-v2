@@ -28,7 +28,8 @@
   "os": [
     "windows",
     "linux",
-    "win32"
+    "win32",
+    "darwin"
   ],
   "files": [
     "dist/",
@@ -51,7 +52,7 @@
     "node-gyp-build": "4.8.4"
   },
   "scripts": {
-    "build-native": "./manual-prebuild.sh",
+    "build-native": "node manual-prebuild.js",
     "check-packages": "npx npm-check -u -E",
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc && node-gyp-build",
