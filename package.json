@@ -57,6 +57,6 @@
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc",
     "test": "node test-esm.js",
-    "postinstall": "node postinstall.js"
+    "postinstall": "node postinstall.cjs"
   }
 }
