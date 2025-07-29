@@ -1,3 +1,5 @@
+
+#define NOMINMAX
 #include <nan.h>
 #include "idle.h"
 
