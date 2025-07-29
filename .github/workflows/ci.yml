@@ -53,11 +53,12 @@ jobs:
         if: runner.os != 'Linux'
         run: node test-esm.mjs
 
-      # Test 2: Test compilation from source (user scenario 2)
-      - name: Test install from GitHub with forced compilation
-        run: npm install -g github:${{ github.repository }}#${{ github.head_ref || github.ref_name }} --build-from-source
+      # Removing this test as I don't believe we need to support Github installs with source compilation
+      # # Test 2: Test compilation from source (user scenario 2)
+      # - name: Test install from GitHub with forced compilation
+      #   run: npm install -g github:${{ github.repository }}#${{ github.head_ref || github.ref_name }} --build-from-source
 
-      # Test 3: Test functionality after compilation from source
+      # Test 2: Test functionality after compilation from source
       - name: Test functionality after source compilation on Linux
         if: runner.os == 'Linux'
         run: sg input -c "node test-esm.mjs"
