@@ -1,4 +1,4 @@
-import { desktopIdle } from "./src/esm-entry.js";
+import { desktopIdle } from "./src/esm-entry.mjs";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

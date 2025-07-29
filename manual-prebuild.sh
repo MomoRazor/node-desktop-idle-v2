@@ -32,7 +32,7 @@ NODE_FILE="desktopIdle.node"
 # Build for Node.js versions
 for NODE_VERSION in "${NODE_VERSIONS[@]}"; do
   echo "\n=== Building for Node.js $NODE_VERSION ==="
-  ABI_VERSION=$(node ./get-abi.js node "$NODE_VERSION")
+  ABI_VERSION=$(node ./get-abi.mjs node "$NODE_VERSION")
   if [ -z "$ABI_VERSION" ]; then
     echo "Could not detect ABI version for Node.js $NODE_VERSION. Skipping."
     continue
@@ -53,14 +53,15 @@ for NODE_VERSION in "${NODE_VERSIONS[@]}"; do
   tar -xzvf "$TARBALL" "$NODE_FILE" --overwrite
   ABI_NODE_FILE="node.napi.node-${ABI_VERSION}.node"
   mv -f "$NODE_FILE" "$ABI_NODE_FILE"
-  echo "Created $PREBUILDS_DIR/$TARBALL and extracted $ABI_NODE_FILE for Node.js $NODE_VERSION"
+  rm -f "$TARBALL"
+  echo "Created $PREBUILDS_DIR/$ABI_NODE_FILE for Node.js $NODE_VERSION (removed $TARBALL)"
   cd -
 done
 
 # Build for Electron versions
 for ELECTRON_VERSION in "${ELECTRON_VERSIONS[@]}"; do
   echo "\n=== Building for Electron $ELECTRON_VERSION ==="
-  ABI_VERSION=$(node ./get-abi.js electron "$ELECTRON_VERSION")
+  ABI_VERSION=$(node ./get-abi.mjs electron "$ELECTRON_VERSION")
   if [ -z "$ABI_VERSION" ]; then
     echo "Could not detect ABI version for Electron $ELECTRON_VERSION. Skipping."
     continue
@@ -81,6 +82,7 @@ for ELECTRON_VERSION in "${ELECTRON_VERSIONS[@]}"; do
   tar -xzvf "$TARBALL" "$NODE_FILE" --overwrite
   ABI_NODE_FILE="electron.napi.node-${ABI_VERSION}.node"
   mv -f "$NODE_FILE" "$ABI_NODE_FILE"
-  echo "Created $PREBUILDS_DIR/$TARBALL and extracted $ABI_NODE_FILE for Electron $ELECTRON_VERSION"
+  rm -f "$TARBALL"
+  echo "Created $PREBUILDS_DIR/$ABI_NODE_FILE for Electron $ELECTRON_VERSION (removed $TARBALL)"
   cd -
 done
