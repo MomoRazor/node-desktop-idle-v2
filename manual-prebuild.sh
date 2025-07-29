@@ -49,9 +49,12 @@ for NODE_VERSION in "${NODE_VERSIONS[@]}"; do
   cp "build/Release/$NODE_FILE" "$PREBUILDS_DIR/"
   cd "$PREBUILDS_DIR"
   tar -czvf "$TARBALL" "$NODE_FILE"
-  rm "$NODE_FILE"
+  # Extract the .node file from the tarball (overwrite if exists)
+  tar -xzvf "$TARBALL" "$NODE_FILE" --overwrite
+  ABI_NODE_FILE="node.napi.node-${ABI_VERSION}.node"
+  mv -f "$NODE_FILE" "$ABI_NODE_FILE"
+  echo "Created $PREBUILDS_DIR/$TARBALL and extracted $ABI_NODE_FILE for Node.js $NODE_VERSION"
   cd -
-  echo "Created $PREBUILDS_DIR/$TARBALL for Node.js $NODE_VERSION"
 done
 
 # Build for Electron versions
@@ -74,7 +77,10 @@ for ELECTRON_VERSION in "${ELECTRON_VERSIONS[@]}"; do
   cp "build/Release/$NODE_FILE" "$PREBUILDS_DIR/"
   cd "$PREBUILDS_DIR"
   tar -czvf "$TARBALL" "$NODE_FILE"
-  rm "$NODE_FILE"
+  # Extract the .node file from the tarball (overwrite if exists)
+  tar -xzvf "$TARBALL" "$NODE_FILE" --overwrite
+  ABI_NODE_FILE="electron.napi.node-${ABI_VERSION}.node"
+  mv -f "$NODE_FILE" "$ABI_NODE_FILE"
+  echo "Created $PREBUILDS_DIR/$TARBALL and extracted $ABI_NODE_FILE for Electron $ELECTRON_VERSION"
   cd -
-  echo "Created $PREBUILDS_DIR/$TARBALL for Electron $ELECTRON_VERSION"
 done
