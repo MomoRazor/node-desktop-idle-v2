@@ -72,7 +72,6 @@ function build(target, version, abiVersion, isElectron) {
   const cwd = process.cwd();
   process.chdir(prebuildsDir);
   run(`tar -czvf ${tarball} ${nodeFile}`);
-  // Extract the .node file from the tarball (overwrite if exists)
   run(`tar -xzvf ${tarball} ${nodeFile} --overwrite`);
   const abiNodeFile = `${target}.napi.node-${abiVersion}.node`;
   renameSync(nodeFile, abiNodeFile);
