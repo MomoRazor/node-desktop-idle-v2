@@ -76,7 +76,7 @@ The package offers 3 functions:
 
 - Follow Platform specific instructions
 - If changes are done to native code for any platform, please run `npm run build-native`
-- To run a test, run `node ./test-esm.js` after having built (`npm run build`) the project. This will run a 10 second test, giving idle time every second.
+- To run a test, run `node ./test-esm.mjs` after having built (`npm run build`) the project. This will run a 10 second test, giving idle time every second.
 
 # Directly Tested Platforms:
 

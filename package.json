@@ -4,11 +4,10 @@
   "main": "./src/cjs-entry.cjs",
   "types": "./src/cjs-entry.d.ts",
   "exports": {
-    "import": "./src/esm-entry.js",
+    "import": "./src/esm-entry.mjs",
     "require": "./src/cjs-entry.cjs"
   },
   "license": "MIT",
-  "type": "module",
   "description": "Node/Electron module to detect idle desktop users(users away from keyboard) in Windows and Linux",
   "bugs": {
     "email": "maurovic.cachia@gmail.com",
@@ -56,7 +55,7 @@
     "check-packages": "npx npm-check -u -E",
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc",
-    "test": "node test-esm.js",
+    "test": "node test-esm.mjs",
     "postinstall": "node postinstall.cjs"
   }
 }
