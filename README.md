@@ -75,7 +75,8 @@ The package offers 3 functions:
 ## Instructions to test the package after cloning:
 
 - Follow Platform specific instructions
-- If changes are done to native code for any platform, please run `npm run build-native`
+- Run the normal `npm i` command to install packages.
+- If changes are done to native code for any platform, please run `npm run build-native` and `npm run build` in that order. The order is important as the `build` command requires that the native binaries are already in place to make the necessary connections.
 - To run a test, run `node ./test-esm.mjs` after having built (`npm run build`) the project. This will run a 10 second test, giving idle time every second.
 
 # Directly Tested Platforms:
