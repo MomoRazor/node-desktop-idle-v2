@@ -39,9 +39,10 @@ jobs:
       - name: Test npm run build-native
         run: npm run build-native
 
-      # Test 4: Install from GitHub with prebuilts (user scenario 1)
-      - name: Test install from GitHub with prebuilts
-        run: npm install -g github:${{ github.repository }}#${{ github.head_ref || github.ref_name }}
+      # Removing this test as I don't believe we need to support Github installs with prebuilds
+      # # Test 4: Install from GitHub with prebuilts (user scenario 1)
+      # - name: Test install from GitHub with prebuilts
+      #   run: npm install -g github:${{ github.repository }}#${{ github.head_ref || github.ref_name }}
 
       # Test 5: Test functionality with prebuilts
       - name: Test functionality on Linux
