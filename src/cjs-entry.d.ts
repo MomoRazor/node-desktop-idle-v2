@@ -5,4 +5,4 @@ export interface DesktopIdle {
 }
 
 declare const desktopIdle: DesktopIdle;
-export = desktopIdle;
+export { desktopIdle };

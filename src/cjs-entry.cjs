@@ -1,6 +1,8 @@
 const path = require("path");
 const bindings = require("node-gyp-build")(path.resolve(__dirname, ".."));
-module.exports = bindings;
+module.exports = {
+  desktopIdle: bindings,
+};
 
 // const nodeGypBuild = require("node-gyp-build");
 // const resolvedPath = nodeGypBuild.path || __dirname; // node-gyp-build exposes .path in some versions

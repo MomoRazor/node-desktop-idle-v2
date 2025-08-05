@@ -1,4 +1,5 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const desktopIdle = require("./cjs-entry.cjs");
+const desktopIdleModule = require("./cjs-entry.cjs");
+const desktopIdle = desktopIdleModule.default || desktopIdleModule;
 export { desktopIdle };
