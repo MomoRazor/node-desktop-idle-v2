@@ -58,6 +58,7 @@
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc && node-gyp-build",
     "test": "node test-esm.mjs",
+    "test-cjs": "node test-cjs.cjs",
     "postinstall": "node postinstall.cjs"
   }
 }

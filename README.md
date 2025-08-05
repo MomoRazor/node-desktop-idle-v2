@@ -33,7 +33,7 @@ This fork focuses on making node-desktop-idle work with contemporary softwares, 
 
 ## Versions after v1.1
 
-In v1.1, this project started to use the combination of [prebuildify](https://github.com/prebuild/prebuildify) and [node-gyp-build](https://github.com/prebuild/node-gyp-build). This means that now, binaries should be, for the most part, embedded in the package and ready to use. If issues pertaining to NodeJS ABI version come up, follow the steps below.
+In v1.1, this project has been released with bundled in binaries for the supported platforms, for various NodeJs versions. This means that now, binaries should be, for the most part, embedded in the package and ready to use. If issues pertaining to NodeJS ABI version come up, follow the steps below.
 
 ## Version before v1.1 (or in case of issues)
 
