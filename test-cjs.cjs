@@ -1,4 +1,4 @@
-const desktopIdle = require("./src/cjs-entry.cjs");
+const { desktopIdle } = require("./src/cjs-entry.cjs");
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
