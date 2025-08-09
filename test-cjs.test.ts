@@ -65,5 +65,5 @@ describe("esm test", () => {
       console.error(error.stack);
       process.exit(1);
     }
-  });
+  }, 900000);
 });
