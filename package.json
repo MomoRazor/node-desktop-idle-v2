@@ -41,11 +41,14 @@
     "postinstall.cjs"
   ],
   "devDependencies": {
-    "@types/node": "24.2.0",
-    "eslint": "9.32.0",
+    "@types/node": "24.2.1",
+    "eslint": "9.33.0",
     "node-abi": "4.12.0",
     "node-gyp": "11.3.0",
     "npm-check": "6.0.1",
+    "ts-jest": "29.4.1",
+    "jest": "30.0.5",
+    "@types/jest": "30.0.0",
     "typescript": "5.9.2"
   },
   "dependencies": {
@@ -58,6 +61,7 @@
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc && node-gyp-build",
     "test": "node test-esm.mjs",
+    "jest-test": "jest",
     "test-cjs": "node test-cjs.cjs",
     "postinstall": "node postinstall.cjs"
   }
