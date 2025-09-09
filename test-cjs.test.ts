@@ -58,12 +58,9 @@ describe("esm test", () => {
       console.log(`  - Total measurements: ${measurements}`);
       console.log(`  - Valid measurements: ${validMeasurements}`);
       console.log(`  - Success rate: ${successRate.toFixed(1)}%`);
-
-      process.exit(0);
     } catch (error) {
       console.error(`\n✗ Test failed: ${error.message}`);
       console.error(error.stack);
-      process.exit(1);
     }
   }, 900000);
 });
