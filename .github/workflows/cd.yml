@@ -1,0 +1,58 @@
+name: Release Executables
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    outputs:
+      version_changed: ${{ steps.versioncheck.outputs.changed }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # First: npm install works
+      - name: Test npm install
+        run: npm install
+
+      # Third: npm run build works
+      - name: Test npm run build
+        run: npm run build
+
+            - name: Get previous package.json
+        id: prevpkg
+        run: |
+          git fetch origin main --depth=2
+          git show HEAD^:package.json > old-package.json || echo '{}' > old-package.json
+
+      - name: Check if version changed
+        id: versioncheck
+        run: |
+          oldver=$(jq -r .version old-package.json)
+          newver=$(jq -r .version package.json)
+          echo "Old version: $oldver, New version: $newver"
+          if [ "$oldver" = "$newver" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+      
+      - name: Publish to npm
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.versioncheck.outputs.changed == 'true' }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
