@@ -59,7 +59,7 @@ jobs:
         shell: bash
 
       - name: Publish to npm
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.versioncheck.outputs.changed == 'true' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && steps.versioncheck.outputs.changed == 'true' }}
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
           npm publish --access public
