@@ -58,10 +58,12 @@ jobs:
           fi
         shell: bash
 
-      - name: Publish to npm
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && steps.versioncheck.outputs.changed == 'true' }}
+      - name: Add to token to .npmrc
+        if: ${{steps.versioncheck.outputs.changed == 'true' }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          echo 'registry=https://registry.npmjs.org/' >> .npmrc
+          echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}' >> .npmrc
+          echo 'always-auth=true' >> .npmrc
+      - name: Publish to npm
+        if: ${{steps.versioncheck.outputs.changed == 'true' }}
+        run: npm publish --access public
