@@ -42,7 +42,7 @@ jobs:
       - name: Get previous package.json
         id: prevpkg
         run: |
-          git fetch origin main --depth=2
+          git fetch origin master --depth=2
           git show HEAD^:package.json > old-package.json || echo '{}' > old-package.json
 
       - name: Check if version changed
