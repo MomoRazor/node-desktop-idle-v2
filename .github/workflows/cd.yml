@@ -30,7 +30,7 @@ jobs:
       - name: Test npm run build
         run: npm run build
 
-            - name: Get previous package.json
+      - name: Get previous package.json
         id: prevpkg
         run: |
           git fetch origin main --depth=2
@@ -48,7 +48,7 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
         shell: bash
-      
+
       - name: Publish to npm
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.versioncheck.outputs.changed == 'true' }}
         run: |

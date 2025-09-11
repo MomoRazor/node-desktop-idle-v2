@@ -66,29 +66,3 @@ jobs:
       - name: Test functionality after source compilation on Windows and macOS
         if: runner.os != 'Linux'
         run: node test-esm.mjs
-              - name: Get previous package.json
-        id: prevpkg
-        run: |
-          git fetch origin main --depth=2
-          git show HEAD^:package.json > old-package.json || echo '{}' > old-package.json
-
-      - name: Check if version changed
-        id: versioncheck
-        run: |
-          oldver=$(jq -r .version old-package.json)
-          newver=$(jq -r .version package.json)
-          echo "Old version: $oldver, New version: $newver"
-          if [ "$oldver" = "$newver" ]; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-        shell: bash
-      
-      - name: Publish to npm
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && steps.versioncheck.outputs.changed == 'true' }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
