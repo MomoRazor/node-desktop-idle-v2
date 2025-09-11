@@ -11,6 +11,14 @@
       "include_dirs": [
         "<!(node -e \"require('nan')\")"  # Include the nan package
       ],
+      "cflags_cc!": [],
+      "cflags_cc": [
+        "-std=c++20"
+      ],
+      "xcode_settings": {
+        "CLANG_CXX_LANGUAGE_STANDARD": "c++20",
+        "CLANG_CXX_LIBRARY": "libc++"
+      },
       "conditions": [
         [
           'OS=="mac"',
