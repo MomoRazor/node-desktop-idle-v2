@@ -4,7 +4,7 @@ This fork focuses on making node-desktop-idle work with contemporary softwares, 
 
 # Changes Made:
 
-- Updated and prebuilt on latest NodeJs LTS (22.15.0 currently)
+- Updated and prebuilt on latest NodeJs LTS (24.11.0 currently)
 - Switched package to ESModule
 - Converted to Typescript
 - Switched to NPM from Yarn
@@ -107,4 +107,4 @@ This package is still a work in progress, and will definitely continue to need m
 - Follow Platform specific instructions
 - Run the normal `npm i` command to install packages.
 - If changes are done to native code for any platform, please run `npm run build-native` and `npm run build` in that order. The order is important as the `build` command requires that the native binaries are already in place to make the necessary connections.
-- To run a test, run `node ./test-esm.mjs` after having built (`npm run build`) the project. This will run a 10 second test, giving idle time every second.
+- To run a test, run `npm run test` after having built (`npm run build`) the project. This will run a 10 second test, giving idle time every second.
