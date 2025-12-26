@@ -62,7 +62,7 @@ jobs:
         if: ${{steps.versioncheck.outputs.changed == 'true' }}
         run: |
           echo 'registry=https://registry.npmjs.org/' >> .npmrc
-          echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}' >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}" >> .npmrc
           echo 'always-auth=true' >> .npmrc
       - name: Publish to npm
         if: ${{steps.versioncheck.outputs.changed == 'true' }}
