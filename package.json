@@ -1,6 +1,6 @@
 {
   "name": "node-desktop-idle-v2",
-  "version": "1.1.18",
+  "version": "1.1.19",
   "main": "./src/cjs-entry.cjs",
   "types": "./src/cjs-entry.d.ts",
   "exports": {
@@ -60,6 +60,7 @@
     "check-packages": "npx npm-check -u -E",
     "refresh-packages": "rm -rf node_modules && rm -rf package-lock.json && npm i",
     "build": "tsc && node-gyp-build",
+    "full-build": "npm run build-native && npm run build",
     "test": "node test-esm.mjs",
     "jest-test": "jest",
     "test-cjs": "node test-cjs.cjs",
