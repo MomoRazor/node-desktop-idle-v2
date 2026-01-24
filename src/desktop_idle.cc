@@ -1,38 +1,45 @@
 
 #define NOMINMAX
-#include <nan.h>
+#include <node_api.h>
 #include "idle.h"
 
 namespace desktopIdle {
 
-using Nan::FunctionCallbackInfo;
-using v8::Isolate;
-using v8::Local;
-using v8::Object;
-using v8::Number;
-using v8::Value;
-using v8::Context;
-
-void desktopIdleGetIdleTime(const FunctionCallbackInfo<Value>& args) {
-  Isolate* isolate = args.GetIsolate();
+napi_value desktopIdleGetIdleTime(napi_env env, napi_callback_info info) {
   double idleSeconds = getTime();
-  args.GetReturnValue().Set(Number::New(isolate, static_cast<double>(idleSeconds)));
+  napi_value result;
+  napi_create_double(env, idleSeconds, &result);
+  return result;
 }
 
-void desktopIdleStartMonitoring(const FunctionCallbackInfo<Value>& args) {
+napi_value desktopIdleStartMonitoring(napi_env env, napi_callback_info info) {
   start();
+  return nullptr;
 }
 
-void desktopIdleStopMonitoring(const FunctionCallbackInfo<Value>& args) {
+napi_value desktopIdleStopMonitoring(napi_env env, napi_callback_info info) {
   stop();
+  return nullptr;
 }
 
-void init(Local<Object> exports, Local<Value> module, Local<Context> context, void* priv) {
-  Nan::SetMethod(exports, "getIdleTime", desktopIdleGetIdleTime);
-  Nan::SetMethod(exports, "startMonitoring", desktopIdleStartMonitoring);
-  Nan::SetMethod(exports, "stopMonitoring", desktopIdleStopMonitoring);
+napi_value init(napi_env env, napi_value exports) {
+  napi_value fn;
+  
+  napi_create_function(env, "getIdleTime", NAPI_AUTO_LENGTH, 
+                       desktopIdleGetIdleTime, nullptr, &fn);
+  napi_set_named_property(env, exports, "getIdleTime", fn);
+  
+  napi_create_function(env, "startMonitoring", NAPI_AUTO_LENGTH, 
+                       desktopIdleStartMonitoring, nullptr, &fn);
+  napi_set_named_property(env, exports, "startMonitoring", fn);
+  
+  napi_create_function(env, "stopMonitoring", NAPI_AUTO_LENGTH, 
+                       desktopIdleStopMonitoring, nullptr, &fn);
+  napi_set_named_property(env, exports, "stopMonitoring", fn);
+  
+  return exports;
 }
 
-NODE_MODULE_CONTEXT_AWARE(desktopIdle, init)
+NAPI_MODULE(NODE_GYP_MODULE_NAME, init)
 
 }  // namespace desktopIdle
