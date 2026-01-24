@@ -12,8 +12,8 @@ const {
 } = require("fs");
 const { join } = require("path");
 
-const NODE_VERSIONS = ["20.0.0", "21.0.0", "22.0.0", "24.0.0"];
-const ELECTRON_VERSIONS = ["35.0.0", "36.0.0", "37.0.0"];
+const NODE_VERSIONS = ["20.0.0", "22.0.0", "24.0.0"];
+const ELECTRON_VERSIONS = ["38.0.0", "39.0.0", "40.0.0"];
 
 function toPlatform() {
   const platform = process.platform;
@@ -64,7 +64,7 @@ function build(target, version, abiVersion, isElectron) {
   const builtFile = join("build", "Release", nodeFile);
   if (!existsSync(builtFile)) {
     console.error(
-      `Native binary not found: ${builtFile} for ${target} ${version}`
+      `Native binary not found: ${builtFile} for ${target} ${version}`,
     );
     return;
   }
@@ -77,7 +77,7 @@ function build(target, version, abiVersion, isElectron) {
   renameSync(nodeFile, abiNodeFile);
   rmSync(tarball);
   console.log(
-    `Created ${prebuildsDir}/${abiNodeFile} for ${target} ${version}`
+    `Created ${prebuildsDir}/${abiNodeFile} for ${target} ${version}`,
   );
   process.chdir(cwd);
 }
@@ -87,7 +87,7 @@ for (const nodeVersion of NODE_VERSIONS) {
   const abiVersion = getAbi("node", nodeVersion);
   if (!abiVersion) {
     console.log(
-      `Could not detect ABI version for Node.js ${nodeVersion}. Skipping.`
+      `Could not detect ABI version for Node.js ${nodeVersion}. Skipping.`,
     );
     continue;
   }
@@ -100,7 +100,7 @@ for (const electronVersion of ELECTRON_VERSIONS) {
   const abiVersion = getAbi("electron", electronVersion);
   if (!abiVersion) {
     console.log(
-      `Could not detect ABI version for Electron ${electronVersion}. Skipping.`
+      `Could not detect ABI version for Electron ${electronVersion}. Skipping.`,
     );
     continue;
   }

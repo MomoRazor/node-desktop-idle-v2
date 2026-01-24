@@ -9,8 +9,9 @@
         "src/desktop_idle.cc",
       ],
       "include_dirs": [
-        "<!(node -e \"require('nan')\")"  # Include the nan package
+        "<!@(node -p \"require('node-addon-api').include\")"
       ],
+      "defines": [ "NAPI_DISABLE_CPP_EXCEPTIONS" ],
       "cflags_cc!": [],
       "cflags_cc": [
         "-std=c++20"
